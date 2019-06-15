@@ -31,14 +31,14 @@ const rejectStyle = {
   borderColor: "#ff1744"
 };
 
-function Dropzone({ text }) {
+function Dropzone({ text, setFiles }) {
   const {
     getRootProps,
     getInputProps,
     isDragActive,
     isDragAccept,
-    isDragReject
-  } = useDropzone({ accept: "image/*" });
+    isDragReject,
+  } = useDropzone({ accept: "image/*", onDrop: setFiles });
 
   const style = useMemo(
     () => ({
@@ -47,7 +47,7 @@ function Dropzone({ text }) {
       ...(isDragAccept ? acceptStyle : {}),
       ...(isDragReject ? rejectStyle : {})
     }),
-    [isDragActive, isDragReject]
+    [isDragAccept, isDragActive, isDragReject]
   );
 
   return (
