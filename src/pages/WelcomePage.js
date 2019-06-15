@@ -18,7 +18,7 @@ export default function WelcomePage(success = identity) {
       <ErrorPopup error={error} setError={setError} />
       <Input label="Subject ID" value={id} onChange={e => setID(e.target.value)} />
       <Dropzone text={`Input model answer: ${model.path}`} setFiles={file => file.length > 1 || file.length < 1 ? setError("Must upload only one model answer!") : setModel(file[0])} />
-      <Dropzone text={`Input student answers: ${files.length}${files.length ? " papers" + files.length : ""}`} setFiles={files => files.length ? setStudentAnswers(files) : setError("Please upload any file")} />
+      <Dropzone text={`Input student answers: ${studentAnswers.length}${studentAnswers.length ? " papers" + studentAnswers.length : ""}`} setFiles={files => files.length ? setStudentAnswers(files) : setError("Please upload any file")} />
       <Button variant="contained" color="primary" disabled={!(id && model && studentAnswers)} style={{ margin: 20 }} onClick={() => {
         const data = new FormData();
         data.append("id", id)
