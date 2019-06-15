@@ -6,7 +6,7 @@ import { linkTo } from "@storybook/addon-links";
 
 import WelcomePage from "../src/pages/WelcomePage";
 
-storiesOf("pages", module).add("to WelcomePage", () => {
+storiesOf("WelcomePage", module).add("to WelcomePage", () => {
   // const [id, setID] = React.useState("")
 
   return <WelcomePage />;
