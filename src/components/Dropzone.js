@@ -37,7 +37,7 @@ function Dropzone({ text, setFiles }) {
     getInputProps,
     isDragActive,
     isDragAccept,
-    isDragReject,
+    isDragReject
   } = useDropzone({ accept: "image/*", onDrop: setFiles });
 
   const style = useMemo(

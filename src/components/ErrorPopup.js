@@ -1,15 +1,15 @@
 import React from "react";
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import Snackbar from "@material-ui/core/Snackbar";
+import SnackbarContent from "@material-ui/core/SnackbarContent";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
-export default function ErrorPopup({error, setError}) {
+export default function ErrorPopup({ error, setError }) {
   return (
     <Snackbar
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'left',
+        vertical: "top",
+        horizontal: "left"
       }}
       open={Boolean(error)}
       // autoHideDuration={6000}
@@ -17,7 +17,7 @@ export default function ErrorPopup({error, setError}) {
     >
       <SnackbarContent
         style={{ backgroundColor: "red" }}
-        aria-describedby='error-message'
+        aria-describedby="error-message"
         message={<span id="error-message">Error: {error}</span>}
         action={[
           <IconButton
@@ -27,7 +27,7 @@ export default function ErrorPopup({error, setError}) {
             onClick={() => setError("")}
           >
             <CloseIcon />
-          </IconButton>,
+          </IconButton>
         ]}
       />
     </Snackbar>

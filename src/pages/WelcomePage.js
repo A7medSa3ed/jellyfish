@@ -13,6 +13,11 @@ export default function WelcomePage(success = identity) {
   const [model, setModel] = React.useState(null);
   const [studentAnswers, setStudentAnswers] = React.useState(null);
 
+  let paperCount = "";
+  if (studentAnswers) {
+    paperCount = studentAnswers.length + " paper";
+  }
+
   return (
     <>
       <ErrorPopup error={error} setError={setError} />
@@ -30,12 +35,7 @@ export default function WelcomePage(success = identity) {
         }
       />
       <Dropzone
-        text={`Input student answers: ${studentAnswers &&
-          studentAnswers.length}${
-          studentAnswers && studentAnswers.length
-            ? " papers" + studentAnswers && studentAnswers.length
-            : ""
-        }`}
+        text={`Input student answers: ${paperCount}`}
         setFiles={files =>
           files.length
             ? setStudentAnswers(files)
