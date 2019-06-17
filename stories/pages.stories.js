@@ -14,14 +14,22 @@ storiesOf("pages", module)
   .add("to ModelAnswerPage", () => {
     return (
       <ModelAnswerPage
-        answers={[
-          { questionNumber: 0, Answer: "B" },
-          { questionNumber: 1, Answer: "B" },
-          { questionNumber: 2, Answer: "B" },
-          { questionNumber: 3, Answer: "B" },
-          { questionNumber: 4, Answer: "B" },
-          { questionNumber: 5, Answer: "B" }
-        ]}
+        answers={{
+          mcq: [
+            { questionNumber: 0, Answer: "B" },
+            { questionNumber: 1, Answer: "B" },
+            { questionNumber: 2, Answer: "B" },
+            { questionNumber: 3, Answer: "B" },
+            { questionNumber: 4, Answer: "B" },
+            { questionNumber: 5, Answer: "B" }
+          ],
+          trueOrFalse: [
+            { questionNumber: 0, Answer: "T" },
+            { questionNumber: 1, Answer: "F" },
+            { questionNumber: 2, Answer: "T" },
+            { questionNumber: 3, Answer: "T" }
+          ]
+        }}
       />
     );
   });
