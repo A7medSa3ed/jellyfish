@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Input from "./Input";
 import TextField from "@material-ui/core/TextField";
 
-export default function({ answers }) {
+export default function({ answers, grades, setGrades }) {
   return (
     <Paper style={{ width: "50%" }}>
       <Table style={{ width: "100%" }}>
@@ -32,7 +32,7 @@ export default function({ answers }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {answers.map(row => (
+          {answers.map((row, i) => (
             <TableRow key={row.questionNumber}>
               <TableCell
                 style={{
@@ -62,9 +62,14 @@ export default function({ answers }) {
                   id="outlined-number"
                   label="Grade"
                   type="number"
-                  defaultValue={1}
+                  value={grades[i]}
                   InputLabelProps={{
                     shrink: true
+                  }}
+                  onChange={e => {
+                    const newGrades = grades.slice(0);
+                    newGrades[i] = +e.target.value;
+                    setGrades(newGrades);
                   }}
                   margin="normal"
                   variant="outlined"
