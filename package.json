@@ -44,7 +44,6 @@
     "@storybook/addon-links": "^5.1.8",
     "@storybook/addons": "^5.1.8",
     "@storybook/react": "^5.1.8",
-    "babel-loader": "^8.0.6",
     "concurrently": "^4.1.0",
     "cross-env": "^5.2.0",
     "electron-builder": "^20.43.0",
