@@ -26,7 +26,7 @@ def scanner(data, img):
                 # print(x1, y1, x2, y2)
 
                 circle = img[y1:y2, x1:x2]
-                cv2.imwrite("./train/{}{}_2.jpeg".format(kind, index), circle)
+                # cv2.imwrite("./train/{}{}_2.jpeg".format(kind, index), circle)
                 # print(img.shape)
                 index += 1
                 circle = cv2.resize(circle, (75, 75))
