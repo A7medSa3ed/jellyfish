@@ -6,11 +6,12 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
+import { answersArrayToString } from "../core";
 
-function rows(rows, grades, setGrades, border = false) {
-  const rowStyle = border ? { borderTop: "3px red solid" } : {};
+function rows(rows, grades, setGrades, type) {
+  const rowStyle = type === "true_false" ? { borderTop: "3px red solid" } : {};
 
-  return rows.map((row, i) => (
+  return rows.map(answersArrayToString(type)).map((row, i) => (
     <TableRow key={row.questionNumber} style={!i ? rowStyle : {}}>
       <TableCell
         style={{
@@ -29,7 +30,7 @@ function rows(rows, grades, setGrades, border = false) {
         component="th"
         scope="row"
       >
-        {row.Answer}
+        {row.answers}
       </TableCell>
       <TableCell
         style={{ width: "100px", fontSize: "15px", fontWeight: "700" }}
@@ -81,12 +82,12 @@ export default function({ answers, grades, setGrades }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows(answers.mcq, grades.mcq, setGrades.mcq)}
+          {rows(answers.mcq, grades.mcq, setGrades.mcq, "mcq")}
           {rows(
-            answers.trueOrFalse,
-            grades.trueOrFalse,
-            setGrades.trueOrFalse,
-            true
+            answers.true_false,
+            grades.true_false,
+            setGrades.true_false,
+            "true_false"
           )}
         </TableBody>
       </Table>
