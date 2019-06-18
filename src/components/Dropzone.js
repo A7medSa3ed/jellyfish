@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 
 const baseStyle = {
-  width: "49%",
+  // width: "49%",
   flex: 1,
   display: "flex",
   flexDirection: "column",
