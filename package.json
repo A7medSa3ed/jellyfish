@@ -8,7 +8,8 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-dropzone": "^10.1.5",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "resulti": "^2.0.0"
   },
   "main": "public/electron.js",
   "scripts": {
