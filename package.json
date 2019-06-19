@@ -15,7 +15,7 @@
   "scripts": {
     "start:react": "cross-env BROWSER=none react-scripts start",
     "start:electron": "cross-env NODE_ENV=development electron .",
-    "start": "concurrently -k -p [{name}] -n '🦄 React,⭐️ Electron' -c 'yellow,magenta' 'npm run start:react' 'wait-on http://localhost:3000/ && npm run start:electron'",
+    "start": "concurrently -k -p \"[{name}]\" -n \"🦄 React,⭐️ Electron\" -c \"yellow,magenta\" \"npm run start:react\" \"wait-on http://localhost:3000/ && npm run start:electron\"",
     "build": "npm run build:react && npm run build:electron",
     "build:react": "react-scripts build",
     "build:electron": "cross-env NODE_ENV=production electron-builder",
