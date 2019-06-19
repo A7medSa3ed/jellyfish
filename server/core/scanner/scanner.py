@@ -4,9 +4,16 @@ import cv2
 import os
 
 # Path of current script + MarkingModel.h5
-model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "MarkingModel.h5")
+model_path = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "MarkingModel.h5",
+)
 model = tf.keras.models.load_model(model_path)
-model.compile(loss="sparse_categorical_crossentropy", optimizer='adam', metrics=['accuracy'])
+model.compile(
+    loss="sparse_categorical_crossentropy",
+    optimizer="adam",
+    metrics=["accuracy"],
+)
 
 # This thing crops:
 def scanner(data, img):
@@ -30,11 +37,50 @@ def scanner(data, img):
                 # print(img.shape)
                 index += 1
                 circle = cv2.resize(circle, (75, 75))
-                circle = np.array([circle[..., np.newaxis]])/255.0
+                circle = (
+                    np.array([circle[..., np.newaxis]])
+                    / 255.0
+                )
 
-                confidence_in_marked = model.predict(circle)[0][1]
-                confidences[question_no-1].append(int(confidence_in_marked * 100))
+                confidence_in_marked = model.predict(
+                    circle
+                )[0][1]
+                confidences[question_no - 1].append(
+                    int(confidence_in_marked * 100)
+                )
 
         return confidences
 
-    return {"mcq": mark_type("mcq", 50), "true_false": mark_type("true_false", 25)}
+    return {
+        "mcq": mark_type("mcq", 50),
+        "true_false": mark_type("true_false", 25),
+    }
+
+
+def id_scanner(data, img):
+    confidences = [[] for x in range(6)]
+
+    for index, number in enumerate(data):
+        for number_circle in number:
+            x1 = int(number_circle[0] - number_circle[2] - 5)
+            y1 = int(number_circle[1] - number_circle[2] - 5)
+            x2 = int(number_circle[0] + number_circle[2] + 5)
+            y2 = int(number_circle[1] + number_circle[2] + 5)
+
+            # print(x1, y1, x2, y2)
+
+            number_circle = img[y1:y2, x1:x2]
+            # cv2.imwrite("./train/{}{}_2.jpeg".format(kind, index), number_circle)
+            # print(img.shape)
+            number_circle = cv2.resize(number_circle, (75, 75))
+            number_circle = (
+                np.array([number_circle[..., np.newaxis]])
+                / 255.0
+            )
+
+            confidence_in_marked = model.predict(number_circle)[
+                0
+            ][1]
+            confidences[index].append(int(confidence_in_marked * 100))
+
+    return confidences

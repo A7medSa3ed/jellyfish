@@ -1,24 +1,36 @@
-# from django.shortcuts import render
 import numpy
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
-from .scanner.main import detect_answers
+from .scanner.main import (
+    image_from_butter,
+    detect_answers,
+    detect_identity,
+)
+
 
 @csrf_exempt
 def index(request):
-	if request.method == 'POST':
-		if request.FILES.get("paper", None) is not None:
-			data_temp = request.FILES['paper'].read()
+    if request.method == "POST":
+        if request.FILES.get("paper", None) is not None:
+            data_temp = request.FILES["paper"].read()
 
-			image = numpy.frombuffer(data_temp, numpy.uint8)
+            buffer = numpy.frombuffer(
+                data_temp, numpy.uint8
+            )
+            image = image_from_butter(buffer)
 
-			response = JsonResponse(detect_answers(image))
-			response["Access-Control-Allow-Origin"] = "*"
+            unprepared_response = detect_answers(image)
+            unprepared_response["id"] = detect_identity(image)
 
-			return response
-		else:
-			response = JsonResponse({"error": "No paper file was included"})
-			response["Access-Control-Allow-Origin"] = "*"
+            response = JsonResponse(unprepared_response)
+            response["Access-Control-Allow-Origin"] = "*"
 
-			return response
+            return response
+        else:
+            response = JsonResponse(
+                {"error": "No paper file was included"}
+            )
+            response["Access-Control-Allow-Origin"] = "*"
+
+            return response
