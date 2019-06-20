@@ -3,12 +3,13 @@ import { resulti } from "resulti";
 import Button from "@material-ui/core/Button";
 
 import StudentTable from "../components/StudentTable";
-import studentModel from "../models/student";
+// import studentModel from "../models/student";
 import {
   parseConfidenceArray,
   parseIdArray,
   calculateStudentGrade
 } from "../core";
+const { ipcRenderer } = window.require("electron");
 
 export default function StudentGradesPage({ modelAnswer, papers, grades }) {
   const [errors, setErrors] = React.useState([]);
@@ -25,16 +26,18 @@ export default function StudentGradesPage({ modelAnswer, papers, grades }) {
       })
         .then(response => response.json())
         .then(({ mcq, true_false, id }) => {
-          return studentModel.findById(parseIdArray(id)).then(student => {
-            if (!student) {
-              throw GradingError({
-                type: "ERROR",
-                message: `Unknown student id: ${id}`
-              });
-            }
+          ipcRenderer.send("mongo", { id });
 
-            return { student, mcq, true_false };
-          });
+          // return studentModel.findById(parseIdArray(id)).then(student => {
+          //   if (!student) {
+          //     throw GradingError({
+          //       type: "ERROR",
+          //       message: `Unknown student id: ${id}`
+          //     });
+          //   }
+
+          //   return { student, mcq, true_false };
+          // });
         })
         .then(({ student, mcq, true_false }) => {
           const resultMCQ = mcq
@@ -66,7 +69,7 @@ export default function StudentGradesPage({ modelAnswer, papers, grades }) {
         })
         .catch(error => setErrors(errs => [...errs, error]));
     });
-  });
+  }, [grades, modelAnswer, papers]);
 
   return (
     <>

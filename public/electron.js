@@ -3,6 +3,8 @@ const { app, BrowserWindow } = require("electron");
 const { format } = require("url");
 const { join } = require("path");
 
+const connectDatabase = require("../src/models/mongoose");
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -26,8 +28,17 @@ if (!gotTheLock) {
 }
 
 function createWindow() {
+  connectDatabase();
+
   // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 800, height: 600 });
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
 
   const startUrl = isDev
     ? "http://localhost:3000"
@@ -41,6 +52,10 @@ function createWindow() {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  mainWindow.webContents.addListener("mongo", event => {
+    console.log("Hello!");
+  });
 
   // Emitted when the window is closed.
   mainWindow.on("closed", function() {
