@@ -8,11 +8,31 @@ import { getBase64 } from "../core";
 export default function ModelAnswerPage({ success, answers, model }) {
   console.log(answers);
   const [MCQGrades, setMCQGrades] = React.useState(
-    answers.mcq.map(({ answers }) => (answers.some(ans => ans) ? 1 : 0))
+    answers.mcq.map(({ answers, questionNumber }) => {
+      const numberOfAnswers = answers.reduce(
+        (acc, ans) => acc + (ans ? 1 : 0),
+        0
+      );
+      return {
+        grade: numberOfAnswers > 0 ? 1 : 0,
+        questionNumber,
+        divideMark: numberOfAnswers > 1 ? false : null
+      };
+    })
   );
 
   const [trueOrFalseGrades, setTrueOrFalseGrades] = React.useState(
-    answers.true_false.map(({ answers }) => (answers.some(ans => ans) ? 1 : 0))
+    answers.true_false.map(({ answers, questionNumber }) => {
+      const numberOfAnswers = answers.reduce(
+        (acc, ans) => acc + (ans ? 1 : 0),
+        0
+      );
+      return {
+        grade: numberOfAnswers > 0 ? 1 : 0,
+        questionNumber,
+        divideMark: numberOfAnswers > 1 ? false : null
+      };
+    })
   );
 
   const [renderedModel, setRenderedModel] = React.useState(null);

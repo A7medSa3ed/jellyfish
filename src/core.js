@@ -1,4 +1,5 @@
 import { resulti } from "resulti";
+import equals from "array-equal";
 import errors from "./errors";
 
 const maps = {
@@ -30,6 +31,10 @@ export function parseConfidenceArray(type) {
   };
 }
 
+export function parseIdArray(array) {
+  return array.map(innerArray => indexOfMax(innerArray));
+}
+
 export function getBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -49,4 +54,37 @@ export function answersArrayToString(type) {
       questionNumber
     };
   };
+}
+
+export function calculateStudentGrade(modelAnswers, grades, answers) {
+  return (
+    calculateTypesGrades("mcq", modelAnswers, grades, answers) +
+    calculateTypesGrades("true_false", modelAnswers, grades, answers)
+  );
+}
+
+function calculateTypesGrades(type, modelAnswers, grades, answers) {
+  return modelAnswers[type].map(({ answers: modelAnswer, questionNumber }) =>
+    equals(modelAnswer, answers)
+      ? grades[type].find(grade => grade.questionNumber === questionNumber)
+      : 0
+  );
+}
+
+function indexOfMax(arr) {
+  if (arr.length === 0) {
+    return -1;
+  }
+
+  var max = arr[0];
+  var maxIndex = 0;
+
+  for (var i = 1; i < arr.length; i++) {
+    if (arr[i] > max) {
+      maxIndex = i;
+      max = arr[i];
+    }
+  }
+
+  return maxIndex;
 }

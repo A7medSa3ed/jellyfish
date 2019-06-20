@@ -2,6 +2,7 @@ import React from "react";
 
 import WelcomePage from "./pages/WelcomePage";
 import ModelAnswerPage from "./pages/ModelAnswerPage";
+import StudentGradesPage from "./pages/StudentGradesPage";
 
 const initialState = {
   page: "welcome",
@@ -63,10 +64,11 @@ function App() {
       );
     case "students_table":
       return (
-        <ModelAnswerPage
-          success={grades => dispatch({ type: "MODEL_ANSWER_SUBMIT", grades })}
+        <StudentGradesPage
+          // success={grades => dispatch({ type: "MODEL_ANSWER_SUBMIT", grades })}
           answers={state.modelAnswer}
-          model={state.model}
+          papers={state.papers}
+          grades={state.grades}
         />
       );
     default:
