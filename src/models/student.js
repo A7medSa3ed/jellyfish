@@ -21,11 +21,9 @@ const studentSchema = new Schema({
     type: String,
     required: true
   },
-  subjects: [
-    {
-      type: [subjectSchema]
-    }
-  ]
+  subjects: {
+    type: [subjectSchema]
+  }
 });
 
 module.exports = mongoose.model("student", studentSchema);

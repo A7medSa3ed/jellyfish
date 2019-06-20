@@ -55,13 +55,13 @@ function rows(rows, grades, setGrades, type, gradesVisible) {
             id="outlined-number"
             label="Grade"
             type="number"
-            value={grades[i]}
+            value={grades[i].grade}
             InputLabelProps={{
               shrink: true
             }}
             onChange={e => {
               const newGrades = grades.slice(0);
-              newGrades[i] = +e.target.value;
+              newGrades[i].grade = +e.target.value;
               setGrades(newGrades);
             }}
             margin="normal"

@@ -7,7 +7,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 
-export default function({ answers }) {
+export default function({ students }) {
   return (
     <Paper style={{ width: "100%" }}>
       <Table style={{ width: "100%" }}>
@@ -66,7 +66,7 @@ export default function({ answers }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {answers.map((row, i) => (
+          {students.map((row, i) => (
             <TableRow key={row.stdId}>
               <TableCell
                 style={{

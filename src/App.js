@@ -65,8 +65,7 @@ function App() {
     case "students_table":
       return (
         <StudentGradesPage
-          // success={grades => dispatch({ type: "MODEL_ANSWER_SUBMIT", grades })}
-          answers={state.modelAnswer}
+          modelAnswer={state.modelAnswer}
           papers={state.papers}
           grades={state.grades}
         />

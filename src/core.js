@@ -1,6 +1,7 @@
 import { resulti } from "resulti";
 import equals from "array-equal";
 import errors from "./errors";
+import leftPad from "left-pad";
 
 const maps = {
   mcq: ["A", "B", "C", "D", "E", "F"],
@@ -58,17 +59,54 @@ export function answersArrayToString(type) {
 
 export function calculateStudentGrade(modelAnswers, grades, answers) {
   return (
-    calculateTypesGrades("mcq", modelAnswers, grades, answers) +
-    calculateTypesGrades("true_false", modelAnswers, grades, answers)
+    calculateMCQGrades(modelAnswers, grades, answers) +
+    calculateTrueOrFalseGrades(modelAnswers, grades, answers)
   );
 }
 
-function calculateTypesGrades(type, modelAnswers, grades, answers) {
-  return modelAnswers[type].map(({ answers: modelAnswer, questionNumber }) =>
-    equals(modelAnswer, answers)
-      ? grades[type].find(grade => grade.questionNumber === questionNumber)
-      : 0
-  );
+function calculateMCQGrades(modelAnswers, grades, answers) {
+  return modelAnswers.mcq
+    .map(({ answers: modelAnswer, questionNumber }) => {
+      const grade = grades.mcq.find(
+        grade => grade.questionNumber === questionNumber
+      );
+      const answer = answers.mcq.find(
+        ans => ans.questionNumber === questionNumber
+      );
+
+      if (grade.divideMark) {
+        const modelAnswerCount = modelAnswers.reduce(count(true), 0);
+        if (modelAnswerCount !== answer.reduce(count(true), 0)) {
+          return 0;
+        }
+
+        return (
+          (fromBinaryToArray(
+            fromArrayToBinary(modelAnswer) & fromBinaryToArray(answer)
+          ).reduce(count(true), 0) /
+            modelAnswerCount) *
+          grade.grade
+        );
+      }
+
+      return equals(modelAnswer, answer) ? grade.grade : 0;
+    })
+    .reduce((a, b) => a + b);
+}
+
+function calculateTrueOrFalseGrades(modelAnswers, grades, answers) {
+  return modelAnswers.true_false
+    .map(({ answers: modelAnswer, questionNumber }) => {
+      const grade = grades.true_false.find(
+        grade => grade.questionNumber === questionNumber
+      );
+      const answer = answers.true_false.find(
+        ans => ans.questionNumber === questionNumber
+      );
+
+      return equals(modelAnswer, answer) ? grade.grade : 0;
+    })
+    .reduce((a, b) => a + b);
 }
 
 function indexOfMax(arr) {
@@ -87,4 +125,18 @@ function indexOfMax(arr) {
   }
 
   return maxIndex;
+}
+
+function count(element) {
+  return (acc, ele) => (element === ele ? acc + 1 : acc);
+}
+
+function fromArrayToBinary(arr) {
+  return arr.reduce((acc, bool) => (acc << 1) + (bool ? 1 : 0), 0);
+}
+
+function fromBinaryToArray(num) {
+  return leftPad(num.toString(2), 6, "0")
+    .split("")
+    .map(x => x === "1");
 }
