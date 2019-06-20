@@ -9,32 +9,57 @@ import Paper from "@material-ui/core/Paper";
 
 export default function({ answers }) {
   return (
-    <Paper style={{ width: "50%" }}>
+    <Paper style={{ width: "100%" }}>
       <Table style={{ width: "100%" }}>
         <TableHead>
           <TableRow>
             <TableCell
-              style={{ color: "#3f51b5", fontWeight: "700", fontSize: "18px" }}
+              style={{
+                color: "#8369C4",
+                fontWeight: "700",
+                fontSize: "18px",
+                textAlign: "center"
+              }}
             >
               Number
             </TableCell>
             <TableCell
-              style={{ color: "#3f51b5", fontWeight: "700", fontSize: "18px" }}
+              style={{
+                color: "#8369C4",
+                fontWeight: "700",
+                fontSize: "18px",
+                textAlign: "center"
+              }}
             >
               Student ID
             </TableCell>
             <TableCell
-              style={{ color: "#3f51b5", fontWeight: "700", fontSize: "18px" }}
+              style={{
+                color: "#8369C4",
+                fontWeight: "700",
+                fontSize: "18px",
+                textAlign: "center"
+              }}
             >
               Student Name
             </TableCell>
             <TableCell
-              style={{ color: "#3f51b5", fontWeight: "700", fontSize: "18px" }}
+              style={{
+                color: "#8369C4",
+                fontWeight: "700",
+                fontSize: "18px",
+                textAlign: "center"
+              }}
             >
               Grade
             </TableCell>
             <TableCell
-              style={{ color: "#3f51b5", fontWeight: "700", fontSize: "18px" }}
+              style={{
+                color: "#8369C4",
+                fontWeight: "700",
+                fontSize: "18px",
+                textAlign: "center"
+              }}
             >
               Check
             </TableCell>
@@ -45,8 +70,8 @@ export default function({ answers }) {
             <TableRow key={row.stdId}>
               <TableCell
                 style={{
-                  width: "100px",
-                  textAlign: "40%",
+                  width: "8%",
+                  textAlign: "center",
                   fontSize: "16px",
                   fontWeight: "700"
                 }}
@@ -56,28 +81,49 @@ export default function({ answers }) {
                 {i + 1}
               </TableCell>
               <TableCell
-                style={{ width: "100px", fontSize: "15px", fontWeight: "700" }}
+                style={{
+                  width: "20%",
+                  // width: "100px",
+                  fontSize: "15px",
+                  fontWeight: "700",
+                  textAlign: "center"
+                }}
                 component="th"
                 scope="row"
               >
                 {row.stdId}
               </TableCell>
               <TableCell
-                style={{ width: "100px", fontSize: "15px", fontWeight: "700" }}
+                style={{
+                  width: "30%",
+                  fontSize: "15px",
+                  fontWeight: "700",
+                  textAlign: "center"
+                }}
                 component="th"
                 scope="row"
               >
                 {row.stdName}
               </TableCell>
               <TableCell
-                style={{ width: "100px", fontSize: "15px", fontWeight: "700" }}
+                style={{
+                  width: "15%",
+                  fontSize: "15px",
+                  fontWeight: "700",
+                  textAlign: "center"
+                }}
                 component="th"
                 scope="row"
               >
                 {row.Grade}
               </TableCell>
               <TableCell
-                style={{ width: "100px", fontSize: "15px", fontWeight: "700" }}
+                style={{
+                  width: "15%",
+                  fontSize: "15px",
+                  fontWeight: "700",
+                  textAlign: "center"
+                }}
                 component="th"
                 scope="row"
               >

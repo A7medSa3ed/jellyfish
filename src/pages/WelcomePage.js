@@ -1,3 +1,4 @@
+/** @jsx jsx */
 import React from "react";
 import Button from "@material-ui/core/Button";
 
@@ -7,6 +8,9 @@ import Dropzone from "../components/Dropzone";
 import Loading from "../components/Loading";
 import { parseConfidenceArray } from "../core";
 import { resulti } from "resulti";
+import { css, jsx } from "@emotion/core";
+
+// import { maxWidth } from "@material-ui/system";
 
 export default function WelcomePage({
   success,
@@ -23,21 +27,37 @@ export default function WelcomePage({
   if (papers) {
     paperCount = papers.length + " papers";
   }
-
   return (
-    <>
+    <div>
       <ErrorPopup error={error} setError={setError} />
       {submitted ? (
         <Loading />
       ) : (
-        <>
+        <div
+          css={css`
+            margin: 50px auto;
+            @media (min-width: 250px) and (max-width: 767) {
+              width: 150px;
+              margin: 60px auto;
+            }
+            @media (min-width: 768px) {
+              width: 750px;
+            }
+            @media (min-width: 992px) {
+              width: 970px;
+            }
+            @media (min-width: 1200px) {
+              width: 1170px;
+            }
+          `}
+        >
           <Input
             label="Subject ID"
             value={id}
             onChange={e => setID(e.target.value)}
           />
           <Dropzone
-            text={`Input model answer: ${(model && model.path) || ""}`}
+            text={`Select model answer: ${(model && model.path) || ""}`}
             setFiles={file =>
               file.length > 1 || file.length < 1
                 ? setError("Must upload only one model answer!")
@@ -45,18 +65,67 @@ export default function WelcomePage({
             }
           />
           <Dropzone
-            text={`Input student answers: ${paperCount}`}
+            text={`Select student answers: ${paperCount}`}
             setFiles={files =>
               files.length
                 ? setPapers(files)
                 : setError("Please upload any file")
             }
           />
-          <Button
-            variant="contained"
-            color="primary"
+          <button
+            // variant="contained"
+            // color="primary"
+            css={css`
+              width: 40%;
+              margin: 0px 30%;
+              background: #8369c4;
+              color: #fff;
+              border: none;
+              position: relative;
+              font-size: 1.6em;
+              padding: 8px;
+              cursor: pointer;
+              transition: 800ms ease all;
+              outline: none;
+              &:hover {
+                background: #fff;
+                color: #8369c4;
+              }
+              &:before,
+              &:after {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 2px;
+                width: 0;
+                background: #8369c4;
+                transition: 400ms ease all;
+              }
+              &:after {
+                right: inherit;
+                top: inherit;
+                left: 0;
+                bottom: 0;
+              }
+              &:hover:before,
+              &:hover:after {
+                width: 100%;
+                transition: 800ms ease all;
+              }
+              &[disabled] {
+                background-color: #d7d7d7;
+                cursor: not-allowed;
+                color: #a5a9ae;
+                &:before,
+                &:after {
+                  border: none;
+                  transition: none;
+                  content: none;
+                }
+              }
+            `}
             disabled={!(id && model && papers)}
-            style={{ margin: 20 }}
             onClick={() => {
               const data = new FormData();
               data.append("paper", model, model.name);
@@ -99,9 +168,9 @@ export default function WelcomePage({
             }}
           >
             Submit
-          </Button>
-        </>
+          </button>
+        </div>
       )}
-    </>
+    </div>
   );
 }

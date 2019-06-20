@@ -1,22 +1,35 @@
-import React from "react";
+/** @jsx jsx */
+// import React from "react";
 
-import TextField from "@material-ui/core/TextField";
+import { css, jsx } from "@emotion/core";
 
-export default function Input({ label, value, onChange, defaultValue }) {
+export default function Input({ value, onChange, defaultValue }) {
   return (
-    <TextField
-      id="standard-name"
-      label={label}
-      // className={classes.textField}
-      styles={{
-        marginLeft: 20,
-        marginRight: 20,
-        width: 200
-      }}
-      defaultValue={defaultValue}
-      value={value}
-      onChange={onChange}
-      margin="normal"
-    />
+    <div
+      className="row"
+      css={css`
+        margin: 0 25%;
+        .input-field .prefix.active,
+        .input-field .prefix2.active,
+        .input-field .materialize-textarea:focus {
+          color: #8369c4;
+          border-color: #8369c4;
+        }
+      `}
+    >
+      <div className="input-field col s6">
+        <i className="material-icons prefix">book</i>
+        <textarea
+          id="icon_prefix2"
+          className="materialize-textarea"
+          defaultValue={defaultValue}
+          value={value}
+          onChange={onChange}
+        ></textarea>
+        <label htmlFor="icon_prefix2" className="prefix2">
+          Subject ID
+        </label>
+      </div>
+    </div>
   );
 }

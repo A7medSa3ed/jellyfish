@@ -2,21 +2,21 @@ import React, { useCallback, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 
 const baseStyle = {
-  // width: "49%",
-  flex: 1,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
+  width: "50%",
+  // flex: 1,
+  // display: "flex",
+  // flexDirection: "column",
+  // alignItems: "center",
   padding: "20px",
   borderWidth: 2,
-  borderRadius: 2,
-  borderColor: "#eeeeee",
+  borderRadius: "15px ",
+  borderColor: "#8369C4",
   borderStyle: "dashed",
   backgroundColor: "#fafafa",
-  color: "#bdbdbd",
+  color: "#x",
   outline: "none",
   transition: "border .24s ease-in-out",
-  margin: 20
+  margin: " 50px auto"
 };
 
 const activeStyle = {

@@ -5,8 +5,7 @@ import { css, jsx } from "@emotion/core";
 import Table from "../components/Table";
 import { getBase64 } from "../core";
 
-export default function ModelAnswerPage({ success, answers, model }) {
-  console.log(answers);
+export default function StudentPage({ success, answers, model }) {
   const [MCQGrades, setMCQGrades] = React.useState(
     answers.mcq.map(({ answers }) => (answers.some(ans => ans) ? 1 : 0))
   );
@@ -29,7 +28,6 @@ export default function ModelAnswerPage({ success, answers, model }) {
     <div style={{ display: "flex", flexDirection: "row" }}>
       <div>
         <Table
-          gradesVisible={true}
           answers={answers}
           grades={grades}
           setGrades={{ mcq: setMCQGrades, true_false: setTrueOrFalseGrades }}
