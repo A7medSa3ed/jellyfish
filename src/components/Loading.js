@@ -6,7 +6,7 @@ export default function Loading() {
     <div
       css={css`
         display: block;
-        position: fixed;
+        margin: 20% auto;
         top: 40%;
         left: 40%;
         width: 200px;
@@ -16,7 +16,6 @@ export default function Loading() {
         border-top: 4px solid #ff5722;
         -webkit-animation: spin 2s linear infinite;
         animation: spin 2s linear infinite;
-
         &::before,
         &::after {
           content: "";
@@ -42,7 +41,6 @@ export default function Loading() {
           -webkit-animation: spin 1.5s linear infinite;
           animation: spin 1.75s linear infinite;
         }
-
         @-webkit-keyframes spin {
           from {
             -webkit-transform: rotate(0deg);
@@ -53,7 +51,6 @@ export default function Loading() {
             transform: rotate(360deg);
           }
         }
-
         @keyframes spin {
           from {
             -webkit-transform: rotate(0deg);

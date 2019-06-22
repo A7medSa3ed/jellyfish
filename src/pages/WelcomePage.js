@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from "react";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 
 import ErrorPopup from "../components/ErrorPopup";
 import Input from "../components/Input";
@@ -51,11 +51,7 @@ export default function WelcomePage({
             }
           `}
         >
-          <Input
-            label="Subject ID"
-            value={id}
-            onChange={e => setID(e.target.value)}
-          />
+          <Input value={id} onChange={e => setID(e.target.value)} />
           <Dropzone
             text={`Select model answer: ${(model && model.path) || ""}`}
             setFiles={file =>

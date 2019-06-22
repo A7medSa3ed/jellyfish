@@ -32,6 +32,29 @@ export default function StudentAnswersPage() {
           width: 100%;
         `}
       >
+        <h2
+          css={css`
+            display: block;
+            width: 64%;
+            margin: 2% auto 0;
+            text-align: center;
+            font-weight: 600;
+            font-family: "Titillium Web", sans-serif;
+            position: relative;
+            font-size: 36px;
+            line-height: 40px;
+
+            padding: 15px 50px 15px 15px;
+            color: #8369c4;
+            // box-shadow: inset 0 0 0 1px #8369c4, inset 0 0 5px #8369c4,
+            // inset -285px 0 35px white;
+            border: solid #8369c4 2px;
+            border-radius: 0 10px 0 10px;
+            // background-color: red;
+          `}
+        >
+          Student Grades Page
+        </h2>
         <StudentTable
           css={css`
             width: 100%;
@@ -48,7 +71,7 @@ export default function StudentAnswersPage() {
           // color="primary"
           css={css`
             width: 40%;
-            margin: 20px 30%;
+            margin: 35px 30%;
             background: #8369C4;
             color: #fff;
             border: none;
@@ -95,11 +118,12 @@ export default function StudentAnswersPage() {
         spacing={2}
         style={{
           color: "red",
-          marginTop: "4px",
-          marginLeft: "5%",
-          border: "solid #8369C4 2px",
+          marginTop: "8.25%",
+          marginLeft: "-9%",
+          border: "2px solid red",
           width: "35%",
-          height: "0%"
+          height: " 0%",
+          marginRight: "171px"
         }}
       >
         <Grid item xs={12} md={8}>

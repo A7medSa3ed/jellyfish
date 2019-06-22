@@ -7,9 +7,16 @@ import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 
-export default function({ students }) {
+export default function({ answers }) {
   return (
-    <Paper style={{ width: "100%" }}>
+    <Paper
+      style={{
+        display: "block",
+        width: "70%",
+        margin: "auto",
+        marginTop: "3%"
+      }}
+    >
       <Table style={{ width: "100%" }}>
         <TableHead>
           <TableRow>
@@ -66,10 +73,11 @@ export default function({ students }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {students.map((row, i) => (
+          {answers.map((row, i) => (
             <TableRow key={row.stdId}>
               <TableCell
                 style={{
+                  color: "#fff",
                   width: "8%",
                   textAlign: "center",
                   fontSize: "16px",
@@ -82,6 +90,7 @@ export default function({ students }) {
               </TableCell>
               <TableCell
                 style={{
+                  color: "#fff",
                   width: "20%",
                   // width: "100px",
                   fontSize: "15px",
@@ -95,6 +104,7 @@ export default function({ students }) {
               </TableCell>
               <TableCell
                 style={{
+                  color: "#fff",
                   width: "30%",
                   fontSize: "15px",
                   fontWeight: "700",
@@ -107,6 +117,7 @@ export default function({ students }) {
               </TableCell>
               <TableCell
                 style={{
+                  color: "#fff",
                   width: "15%",
                   fontSize: "15px",
                   fontWeight: "700",
@@ -119,6 +130,7 @@ export default function({ students }) {
               </TableCell>
               <TableCell
                 style={{
+                  color: "#fff",
                   width: "15%",
                   fontSize: "15px",
                   fontWeight: "700",
@@ -127,7 +139,10 @@ export default function({ students }) {
                 component="th"
                 scope="row"
               >
-                <Button variant="contained" color="primary">
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "#8369C4", color: "#fff" }}
+                >
                   Check
                 </Button>
               </TableCell>

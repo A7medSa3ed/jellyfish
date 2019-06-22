@@ -42,6 +42,46 @@ storiesOf("pages", module)
             {
               questionNumber: 5,
               answers: [true, true, false, false, false, false]
+            },
+            {
+              questionNumber: 5,
+              answers: [true, true, false, false, false, false]
+            },
+            {
+              questionNumber: 5,
+              answers: [true, true, false, false, false, false]
+            },
+            {
+              questionNumber: 5,
+              answers: [true, true, false, false, false, false]
+            },
+            {
+              questionNumber: 5,
+              answers: [true, true, false, false, false, false]
+            },
+            {
+              questionNumber: 5,
+              answers: [true, true, false, false, false, false]
+            },
+            {
+              questionNumber: 5,
+              answers: [true, true, false, false, false, false]
+            },
+            {
+              questionNumber: 5,
+              answers: [true, true, false, false, false, false]
+            },
+            {
+              questionNumber: 5,
+              answers: [true, true, false, false, false, false]
+            },
+            {
+              questionNumber: 5,
+              answers: [true, true, false, false, false, false]
+            },
+            {
+              questionNumber: 5,
+              answers: [true, true, false, false, false, false]
             }
           ],
           true_false: [
@@ -57,7 +97,6 @@ storiesOf("pages", module)
   .add("to StudentPage", () => {
     return (
       <StudentPage
-        gradesVisible={false}
         answers={{
           mcq: [
             {
@@ -86,6 +125,10 @@ storiesOf("pages", module)
             }
           ],
           true_false: [
+            { questionNumber: 0, answers: [true, true] },
+            { questionNumber: 1, answers: [true, true] },
+            { questionNumber: 2, answers: [true, true] },
+            { questionNumber: 3, answers: [true, true] },
             { questionNumber: 0, answers: [true, true] },
             { questionNumber: 1, answers: [true, true] },
             { questionNumber: 2, answers: [true, true] },
