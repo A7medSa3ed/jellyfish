@@ -1,11 +1,9 @@
 /** @jsx jsx */
 import ListItem from "@material-ui/core/ListItem";
 import { makeStyles } from "@material-ui/core/styles";
-// import React from "react";
 
 import { css, jsx } from "@emotion/core";
 import React from "react";
-// import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import StudentTable from "../components/StudentTable";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -13,11 +11,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
-export default function StudentAnswersPage() {
-  // const [id, setID] = React.useState("");
+export default function StudentAnswersPage({ students, errors, check }) {
   const classes = useStyles();
-  const [dense] = React.useState(false);
-  const [secondary] = React.useState(false);
 
   return (
     <div
@@ -59,12 +54,8 @@ export default function StudentAnswersPage() {
           css={css`
             width: 100%;
           `}
-          answers={[
-            { stdId: "140130", stdName: "AHmed", Grade: "55" },
-            { stdId: "140130", stdName: "AHmed", Grade: "55" },
-            { stdId: "140130", stdName: "AHmed", Grade: "55" },
-            { stdId: "140130", stdName: "AHmed", Grade: "55" }
-          ]}
+          students={students}
+          check={check}
         />
         <button
           // variant="contained"
@@ -72,7 +63,7 @@ export default function StudentAnswersPage() {
           css={css`
             width: 40%;
             margin: 35px 30%;
-            background: #8369C4;
+            background: #8369c4;
             color: #fff;
             border: none;
             position: relative;
@@ -83,7 +74,7 @@ export default function StudentAnswersPage() {
             outline: none;
             &:hover {
               background: #fff;
-              color: #8369C4;
+              color: #8369c4;
             }
             &:before,
             &:after {
@@ -93,7 +84,7 @@ export default function StudentAnswersPage() {
               right: 0;
               height: 2px;
               width: 0;
-              background: #8369C4;
+              background: #8369c4;
               transition: 400ms ease all;
             }
             &:after {
@@ -106,7 +97,6 @@ export default function StudentAnswersPage() {
             &:hover:after {
               width: 100%;
               transition: 800ms ease all;
-            }
             }
           `}
         >
@@ -135,24 +125,17 @@ export default function StudentAnswersPage() {
             Errors
           </Typography>
           <div className={classes.demo}>
-            <List dense={dense}>
-              {generate(
-                <ListItem>
-                  <ListItemText css primary="Single-line item" />
+            <List dense={false}>
+              {errors.map(error => (
+                <ListItem style={{ backgroundColor: "#36393f" }}>
+                  <ListItemText css primary={error.message} />
                 </ListItem>
-              )}
+              ))}
             </List>
           </div>
         </Grid>
       </Grid>
     </div>
-  );
-}
-function generate(element) {
-  return [0, 1, 2].map(value =>
-    React.cloneElement(element, {
-      key: value
-    })
   );
 }
 const useStyles = makeStyles(theme => ({

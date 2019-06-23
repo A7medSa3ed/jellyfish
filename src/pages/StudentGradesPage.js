@@ -1,19 +1,56 @@
 import React from "react";
 import { resulti } from "resulti";
-import Button from "@material-ui/core/Button";
 
-import StudentTable from "../components/StudentTable";
-// import studentModel from "../models/student";
+import StudentAnswersPage from "./StudentAnswersPage";
+import StudentPage from "./StudentPage";
+import studentModel from "../models/student";
 import {
   parseConfidenceArray,
   parseIdArray,
   calculateStudentGrade
 } from "../core";
-const { ipcRenderer } = window.require("electron");
+
+const initialState = {
+  errors: [],
+  students: [],
+  activeStudentIndex: null
+};
+
+function reducer(state, action) {
+  console.log(action);
+  switch (action.type) {
+    case "ADD_STUDENT":
+      return { ...state, students: [...state.students, action.student] };
+    case "ADD_ERROR":
+      return { ...state, errors: [...state.errors, action.error] };
+    case "GOTO_STUDENT":
+      return { ...state, activeStudentIndex: action.index };
+    case "GOTO_MAIN":
+      return {
+        ...state,
+        activeStudentIndex: null,
+        students: {
+          ...state.student,
+          [state.activeStudentIndex]: {
+            ...state.students[state.activeStudentIndex],
+            grade: action.grade
+          }
+        }
+      };
+    default:
+      throw new Error();
+  }
+}
 
 export default function StudentGradesPage({ modelAnswer, papers, grades }) {
-  const [errors, setErrors] = React.useState([]);
-  const [students, setStudents] = React.useState([]);
+  const [{ errors, students, activeStudentIndex }, dispatch] = React.useReducer(
+    reducer,
+    initialState
+  );
+  console.log({ errors, students, activeStudentIndex });
+  // const [errors, setErrors] = React.useState([]);
+  // const [students, setStudents] = React.useState([]);
+  // const [activeStudentIndex, setActiveStudentIndex] = React.useState(null);
 
   React.useEffect(() => {
     papers.map(paper => {
@@ -26,18 +63,18 @@ export default function StudentGradesPage({ modelAnswer, papers, grades }) {
       })
         .then(response => response.json())
         .then(({ mcq, true_false, id }) => {
-          ipcRenderer.send("mongo", { id });
+          const parsedId = parseIdArray(id);
 
-          // return studentModel.findById(parseIdArray(id)).then(student => {
-          //   if (!student) {
-          //     throw GradingError({
-          //       type: "ERROR",
-          //       message: `Unknown student id: ${id}`
-          //     });
-          //   }
+          return studentModel.findById(parsedId).then(student => {
+            if (!student) {
+              throw new GradingError({
+                type: "ERROR",
+                message: `Unknown student id: ${parsedId}`
+              });
+            }
 
-          //   return { student, mcq, true_false };
-          // });
+            return { student, mcq, true_false };
+          });
         })
         .then(({ student, mcq, true_false }) => {
           const resultMCQ = mcq
@@ -64,21 +101,25 @@ export default function StudentGradesPage({ modelAnswer, papers, grades }) {
             true_false
           });
           student.answers = { mcq, true_false };
+          student.paper = paper;
 
-          setStudents(stds => [...stds, student]);
+          dispatch({ type: "ADD_STUDENT", student });
         })
-        .catch(error => setErrors(errs => [...errs, error]));
+        .catch(error => dispatch({ type: "ADD_ERROR", error }));
     });
   }, [grades, modelAnswer, papers]);
 
-  return (
-    <>
-      <StudentTable students={students} />
-      {errors.join(" ")}
-      <Button variant="contained" color="primary" style={{ margin: 20 }}>
-        Submit
-      </Button>
-    </>
+  return activeStudentIndex !== null ? (
+    <StudentPage
+      student={students[activeStudentIndex]}
+      close={grade => dispatch({ type: "GOTO_MAIN", grade })}
+    />
+  ) : (
+    <StudentAnswersPage
+      students={students}
+      errors={errors}
+      check={index => dispatch({ type: "GOTO_STUDENT", index })}
+    />
   );
 }
 

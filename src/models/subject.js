@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = window.require("mongoose");
 
 const { Schema } = mongoose;
 

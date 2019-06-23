@@ -33,7 +33,7 @@ export function parseConfidenceArray(type) {
 }
 
 export function parseIdArray(array) {
-  return array.map(innerArray => indexOfMax(innerArray));
+  return array.map(innerArray => indexOfMax(innerArray)).join("");
 }
 
 export function getBase64(file) {
@@ -70,7 +70,7 @@ function calculateMCQGrades(modelAnswers, grades, answers) {
       const grade = grades.mcq.find(
         grade => grade.questionNumber === questionNumber
       );
-      const answer = answers.mcq.find(
+      const { answers: answer } = answers.mcq.find(
         ans => ans.questionNumber === questionNumber
       );
 
@@ -100,7 +100,7 @@ function calculateTrueOrFalseGrades(modelAnswers, grades, answers) {
       const grade = grades.true_false.find(
         grade => grade.questionNumber === questionNumber
       );
-      const answer = answers.true_false.find(
+      const { answers: answer } = answers.true_false.find(
         ans => ans.questionNumber === questionNumber
       );
 
@@ -139,4 +139,9 @@ function fromBinaryToArray(num) {
   return leftPad(num.toString(2), 6, "0")
     .split("")
     .map(x => x === "1");
+}
+
+function inspect(thing) {
+  console.log(thing);
+  return thing;
 }

@@ -21,7 +21,15 @@ def index(request):
             image = image_from_butter(buffer)
 
             unprepared_response = detect_answers(image)
-            unprepared_response["id"] = detect_identity(image)
+            # unprepared_response["id"] = detect_identity(image)
+            unprepared_response["id"] = [
+                [0, 99, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 99, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 99, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 99, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 99, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 99, 0, 0, 0]
+            ]
 
             response = JsonResponse(unprepared_response)
             response["Access-Control-Allow-Origin"] = "*"

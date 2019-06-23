@@ -128,7 +128,12 @@ function rows(rows, grades, setGrades, type, gradesVisible) {
   ));
 }
 
-export default function({ answers, grades, setGrades, gradesVisible = true }) {
+export default function({
+  answers,
+  grades = {},
+  setGrades = {},
+  gradesVisible = true
+}) {
   return (
     <Paper
       style={

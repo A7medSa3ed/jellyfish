@@ -7,34 +7,15 @@ import Table from "../components/Table";
 import { getBase64 } from "../core";
 import TextField from "@material-ui/core/TextField";
 
-export default function StudentPage({
-  success,
-  answers,
-  model,
-  gradesVisible = false
-}) {
-  const [values] = React.useState({
-    name: "Ahmed Saeed",
-    id: 140130
-  });
-
-  const [MCQGrades, setMCQGrades] = React.useState(
-    answers.mcq.map(({ answers }) => (answers.some(ans => ans) ? 1 : 0))
-  );
-
-  const [trueOrFalseGrades, setTrueOrFalseGrades] = React.useState(
-    answers.true_false.map(({ answers }) => (answers.some(ans => ans) ? 1 : 0))
-  );
-
+export default function StudentPage({ close, student }) {
   const [renderedModel, setRenderedModel] = React.useState(null);
+  const [grade, setGrade] = React.useState(student.grade);
 
   React.useEffect(() => {
-    getBase64(model)
+    getBase64(student.paper)
       .then(setRenderedModel)
       .catch(console.error);
-  }, [model]);
-
-  const grades = { mcq: MCQGrades, true_false: trueOrFalseGrades };
+  }, [student.paper]);
 
   return (
     <>
@@ -70,7 +51,7 @@ export default function StudentPage({
           disabled={true}
           id="outlined-name"
           label="Student Name"
-          value={values.name}
+          value={student.name}
           variant="outlined"
           style={{
             marginLeft: "18.5%",
@@ -83,7 +64,7 @@ export default function StudentPage({
           disabled={true}
           id="outlined-name"
           label="Student ID"
-          value={values.id}
+          value={student._id}
           variant="outlined"
           style={{ marginLeft: "2%", marginTop: "2%", marginBottom: "0px" }}
         />
@@ -91,7 +72,7 @@ export default function StudentPage({
           disabled={true}
           id="outlined-name"
           label="Grade"
-          value={values.name}
+          value={grade}
           variant="outlined"
           style={{
             marginLeft: "1.5%",
@@ -99,12 +80,13 @@ export default function StudentPage({
             marginBottom: "0px",
             width: " 9.25%"
           }}
+          onChange={e => setGrade(e.target.value)}
         />
         <TextField
           disabled={true}
           id="outlined-name"
           label="Mid-Term"
-          value={values.id}
+          value={student.midterm}
           variant="outlined"
           style={{
             marginLeft: "2%",
@@ -117,7 +99,7 @@ export default function StudentPage({
           disabled={true}
           id="outlined-name"
           label="Total Grade"
-          value={values.id}
+          value={grade + student.midterm}
           variant="outlined"
           style={{
             marginLeft: "2%",
@@ -171,13 +153,8 @@ export default function StudentPage({
           >
             <Table
               style={{ height: "100%" }}
-              gradesVisible={gradesVisible}
-              answers={answers}
-              grades={grades}
-              setGrades={{
-                mcq: setMCQGrades,
-                true_false: setTrueOrFalseGrades
-              }}
+              gradesVisible={false}
+              answers={student.answers}
             />
           </div>
           <button
@@ -238,14 +215,14 @@ export default function StudentPage({
                 color: white;
               }
             `}
-            onClick={() => success(grades)}
+            onClick={() => close(grade)}
           >
             Submit
           </button>
         </div>
         {/* {renderedModel && ( */}
         <img
-          src={Image}
+          src={renderedModel}
           alt="Model Answers"
           css={css`
             min-width: 32%;
