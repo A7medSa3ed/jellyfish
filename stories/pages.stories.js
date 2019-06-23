@@ -97,43 +97,43 @@ storiesOf("pages", module)
   .add("to StudentPage", () => {
     return (
       <StudentPage
-        answers={{
-          mcq: [
-            {
-              questionNumber: 0,
-              answers: [true, true, false, false, false, false]
-            },
-            {
-              questionNumber: 1,
-              answers: [true, true, false, false, false, false]
-            },
-            {
-              questionNumber: 2,
-              answers: [true, true, false, false, false, false]
-            },
-            {
-              questionNumber: 3,
-              answers: [true, true, false, false, false, false]
-            },
-            {
-              questionNumber: 4,
-              answers: [true, true, false, false, false, false]
-            },
-            {
-              questionNumber: 5,
-              answers: [true, true, false, false, false, false]
-            }
-          ],
-          true_false: [
-            { questionNumber: 0, answers: [true, true] },
-            { questionNumber: 1, answers: [true, true] },
-            { questionNumber: 2, answers: [true, true] },
-            { questionNumber: 3, answers: [true, true] },
-            { questionNumber: 0, answers: [true, true] },
-            { questionNumber: 1, answers: [true, true] },
-            { questionNumber: 2, answers: [true, true] },
-            { questionNumber: 3, answers: [true, true] }
-          ]
+        student={{
+          grade: 50,
+          midterm: 40,
+          answers: {
+            mcq: [
+              {
+                questionNumber: 0,
+                answers: [true, true, false, false, false, false]
+              },
+              {
+                questionNumber: 1,
+                answers: [true, true, false, false, false, false]
+              },
+              {
+                questionNumber: 2,
+                answers: [true, true, false, false, false, false]
+              },
+              {
+                questionNumber: 3,
+                answers: [true, true, false, false, false, false]
+              },
+              {
+                questionNumber: 4,
+                answers: [true, true, false, false, false, false]
+              },
+              {
+                questionNumber: 5,
+                answers: [true, true, false, false, false, false]
+              }
+            ],
+            true_false: [
+              { questionNumber: 0, answers: [true, true] },
+              { questionNumber: 1, answers: [true, true] },
+              { questionNumber: 2, answers: [true, true] },
+              { questionNumber: 3, answers: [true, true] }
+            ]
+          }
         }}
       />
     );

@@ -131,7 +131,7 @@ export default function ModelAnswerPage({ success, answers, model }) {
             // color="primary"
             css={css`
               display: block;
-              width: 214%;
+              width: 205%;
               margin: 7% auto 0 6px;
               background: #8369c4;
               color: #fff;

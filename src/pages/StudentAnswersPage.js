@@ -125,10 +125,16 @@ export default function StudentAnswersPage({ students, errors, check }) {
             Errors
           </Typography>
           <div className={classes.demo}>
-            <List dense={false}>
+            <List
+              dense={false}
+              css={css`
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+              `}
+            >
               {errors.map(error => (
                 <ListItem style={{ backgroundColor: "#36393f" }}>
-                  <ListItemText css primary={error.message} />
+                  <ListItemText primary={error.message} />
                 </ListItem>
               ))}
             </List>

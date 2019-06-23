@@ -29,14 +29,10 @@ export default function StudentPage({ close, student }) {
           position: relative;
           font-size: 36px;
           line-height: 40px;
-
           padding: 15px 50px 15px 15px;
           color: #8369c4;
-          // box-shadow: inset 0 0 0 1px #8369c4, inset 0 0 5px #8369c4,
-          // inset -285px 0 35px white;
           border: solid #8369c4 2px;
           border-radius: 0 10px 0 10px;
-          // background-color: red;
         `}
       >
         Student Page
@@ -44,6 +40,9 @@ export default function StudentPage({ close, student }) {
       <div
         css={css`
           display: flex;
+          .MuiOutlinedInput-notchedOutline {
+            border-color: #8369c4 !important;
+          }
         `}
       >
         <TextField
@@ -58,6 +57,17 @@ export default function StudentPage({ close, student }) {
             marginBottom: "0px",
             width: " 16.5%"
           }}
+          inputProps={{
+            style: {
+              color: "#fff",
+              border: "none",
+              paddingLeft: "20px",
+              paddingTop: "11px"
+            }
+          }}
+          InputLabelProps={{
+            style: { color: "#8369c4", fontWeight: "700", fontSize: "20px" }
+          }}
         />
         <TextField
           disabled={true}
@@ -65,27 +75,53 @@ export default function StudentPage({ close, student }) {
           label="Student ID"
           value={student._id}
           variant="outlined"
-          style={{ marginLeft: "2%", marginTop: "2%", marginBottom: "0px" }}
+          style={{
+            marginLeft: "2%",
+            marginTop: "2%",
+            marginBottom: "0px"
+          }}
+          inputProps={{
+            style: {
+              color: "#fff",
+              border: "none",
+              paddingLeft: "20px",
+              paddingTop: "11px"
+            }
+          }}
+          InputLabelProps={{
+            style: { color: "#8369c4", fontWeight: "700", fontSize: "20px" }
+          }}
         />
         <TextField
-          disabled={true}
+          disabled={false}
           id="outlined-name"
           label="Grade"
           value={grade}
           variant="outlined"
+          onChange={e => setGrade(e.target.value)}
           style={{
             marginLeft: "1.5%",
             marginTop: " 2%",
             marginBottom: "0px",
             width: " 9.25%"
           }}
-          onChange={e => setGrade(e.target.value)}
+          inputProps={{
+            style: {
+              color: "#fff",
+              border: "none",
+              paddingLeft: "20px",
+              paddingTop: "11px"
+            }
+          }}
+          InputLabelProps={{
+            style: { color: "#8369c4", fontWeight: "700", fontSize: "20px" }
+          }}
         />
         <TextField
           disabled={true}
           id="outlined-name"
           label="Mid-Term"
-          value={student.midterm}
+          value={20}
           variant="outlined"
           style={{
             marginLeft: "2%",
@@ -93,18 +129,40 @@ export default function StudentPage({ close, student }) {
             marginBottom: "0px",
             width: " 9.25%"
           }}
+          inputProps={{
+            style: {
+              color: "#fff",
+              border: "none",
+              paddingLeft: "20px",
+              paddingTop: "11px"
+            }
+          }}
+          InputLabelProps={{
+            style: { color: "#8369c4", fontWeight: "700", fontSize: "20px" }
+          }}
         />
         <TextField
           disabled={true}
           id="outlined-name"
           label="Total Grade"
-          value={grade + student.midterm}
+          value={grade + 20}
           variant="outlined"
           style={{
             marginLeft: "2%",
             marginTop: "2%",
             marginBottom: "0px",
             width: " 9.25%"
+          }}
+          inputProps={{
+            style: {
+              color: "#fff",
+              border: "none",
+              paddingLeft: "20px",
+              paddingTop: "11px"
+            }
+          }}
+          InputLabelProps={{
+            style: { color: "#8369c4", fontWeight: "700", fontSize: "20px" }
           }}
         />
       </div>
@@ -151,7 +209,7 @@ export default function StudentPage({ close, student }) {
             `}
           >
             <Table
-              style={{ height: "100%" }}
+              style={{ height: "120%" }}
               gradesVisible={false}
               answers={student.answers}
             />
@@ -161,7 +219,7 @@ export default function StudentPage({ close, student }) {
             // color="primary"
             css={css`
               display: block;
-              width: 210%;
+              width: 196%;
               margin: 7% auto 0 6px;
               background: #8369c4;
               color: #fff;
@@ -216,7 +274,7 @@ export default function StudentPage({ close, student }) {
             `}
             onClick={() => close(grade)}
           >
-            Submit
+            Save
           </button>
         </div>
         {/* {renderedModel && ( */}
@@ -224,7 +282,7 @@ export default function StudentPage({ close, student }) {
           src={renderedModel}
           alt="Model Answers"
           css={css`
-            min-width: 32%;
+            min-width: 28%;
             max-height: 610px;
             margin: 30px 0% 0 1%;
             border: solid #8369c4 2px;
