@@ -63,28 +63,6 @@ function rows(rows, grades, setGrades, type, gradesVisible) {
             width: "100px",
             fontSize: "15px",
             fontWeight: "700",
-            textAlign: "center"
-          }}
-          component="th"
-          scope="row"
-        >
-          <Checkbox
-            // checked={state.checkedB}
-            // onChange={handleChange("checkedB")}
-            value="checkedB"
-            style={{ color: "#fff" }}
-            inputProps={{
-              "aria-label": "secondary checkbox"
-            }}
-          />
-        </TableCell>
-      )}
-      {gradesVisible && (
-        <TableCell
-          style={{
-            width: "100px",
-            fontSize: "15px",
-            fontWeight: "700",
             textAlign: "left"
           }}
           component="th"
@@ -122,6 +100,35 @@ function rows(rows, grades, setGrades, type, gradesVisible) {
               }
             `}
           />
+        </TableCell>
+      )}
+      {gradesVisible && (
+        <TableCell
+          style={{
+            width: "100px",
+            fontSize: "15px",
+            fontWeight: "700",
+            textAlign: "center"
+          }}
+          component="th"
+          scope="row"
+        >
+          {" "}
+          {grades[i].divideMark !== null && (
+            <Checkbox
+              checked={grades[i].divideMark}
+              value={i}
+              onClick={() => {
+                const newGrades = grades.slice(0);
+                newGrades[i].divideMark = !newGrades[i].divideMark;
+                setGrades(newGrades);
+              }}
+              style={{ color: "#fff" }}
+              inputProps={{
+                "aria-label": "checkbox"
+              }}
+            />
+          )}
         </TableCell>
       )}
     </TableRow>
@@ -182,7 +189,7 @@ export default function({
                   textAlign: "center"
                 }}
               >
-                Divide
+                Grade
               </TableCell>
             )}
             {gradesVisible && (
@@ -194,7 +201,7 @@ export default function({
                   textAlign: "center"
                 }}
               >
-                Grade
+                Divide Equally
               </TableCell>
             )}
           </TableRow>
