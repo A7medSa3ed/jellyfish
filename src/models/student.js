@@ -8,7 +8,10 @@ const subjectSchema = new Schema({
     required: true
   },
   grade: {
-    type: String
+    type: Number
+  },
+  midterm: {
+    type: Number
   }
 });
 
