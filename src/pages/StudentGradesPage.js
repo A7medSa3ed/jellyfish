@@ -47,7 +47,12 @@ function reducer(state, action) {
   }
 }
 
-export default function StudentGradesPage({ modelAnswer, papers, grades }) {
+export default function StudentGradesPage({
+  modelAnswer,
+  papers,
+  grades,
+  subjectId
+}) {
   const [{ errors, students, activeStudentIndex }, dispatch] = React.useReducer(
     reducer,
     initialState
@@ -75,6 +80,12 @@ export default function StudentGradesPage({ modelAnswer, papers, grades }) {
               throw new GradingError({
                 type: "ERROR",
                 message: `Unknown student id: ${parsedId}`
+              });
+            }
+            if (!student.subjects.find(subj => subj.id === subjectId)) {
+              throw new GradingError({
+                type: "ERROR",
+                message: `Student with id ${parsedId} doesn't have subject ${subjectId} registered`
               });
             }
 
@@ -107,12 +118,15 @@ export default function StudentGradesPage({ modelAnswer, papers, grades }) {
           });
           student.answers = { mcq, true_false };
           student.paper = paper;
+          student.midterm = student.subjects.find(
+            subj => subj.id === subjectId
+          ).midterm;
 
           dispatch({ type: "ADD_STUDENT", student });
         })
         .catch(error => dispatch({ type: "ADD_ERROR", error }));
     });
-  }, [grades, modelAnswer, papers]);
+  }, [grades, modelAnswer, papers, subjectId]);
 
   return activeStudentIndex !== null ? (
     <StudentPage

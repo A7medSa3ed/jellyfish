@@ -98,7 +98,7 @@ export default function StudentPage({ close, student }) {
           label="Grade"
           value={grade}
           variant="outlined"
-          onChange={e => setGrade(e.target.value)}
+          onChange={e => setGrade(+e.target.value)}
           style={{
             marginLeft: "1.5%",
             marginTop: " 2%",
@@ -121,7 +121,7 @@ export default function StudentPage({ close, student }) {
           disabled={true}
           id="outlined-name"
           label="Mid-Term"
-          value={20}
+          value={student.midterm}
           variant="outlined"
           style={{
             marginLeft: "2%",
@@ -145,7 +145,7 @@ export default function StudentPage({ close, student }) {
           disabled={true}
           id="outlined-name"
           label="Total Grade"
-          value={grade + 20}
+          value={grade + student.midterm}
           variant="outlined"
           style={{
             marginLeft: "2%",
