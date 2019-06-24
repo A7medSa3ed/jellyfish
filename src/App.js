@@ -3,9 +3,11 @@ import React from "react";
 import WelcomePage from "./pages/WelcomePage";
 import ModelAnswerPage from "./pages/ModelAnswerPage";
 import StudentGradesPage from "./pages/StudentGradesPage";
+import Jellyfish from "./components/Jellyfish";
 
 const initialState = {
-  page: "welcome",
+  page: "intro",
+  top: false,
   papers: null,
   model: null,
   modelAnswer: null,
@@ -15,6 +17,10 @@ const initialState = {
 function reducer(state, action) {
   console.log(action);
   switch (action.type) {
+    case "INTRO_START":
+      return { ...state, top: true };
+    case "INTRO_END":
+      return { ...state, page: "welcome" };
     case "WELCOME_LOAD_PAPERS":
       return { ...state, papers: action.papers };
     case "WELCOME_LOAD_MODEL":
@@ -31,6 +37,12 @@ function reducer(state, action) {
         page: "students_table",
         grades: action.grades
       };
+    case "RESET":
+      return {
+        ...initialState,
+        page: "welcome",
+        top: true
+      };
     default:
       throw new Error();
   }
@@ -39,36 +51,71 @@ function reducer(state, action) {
 function App() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
+  React.useEffect(() => {
+    let id = null;
+    if (state.top) {
+      id = setTimeout(() => {
+        dispatch({ type: "INTRO_END" });
+      }, 1000);
+    } else {
+      id = setTimeout(() => {
+        dispatch({ type: "INTRO_START" });
+      }, 1000);
+    }
+    return () => clearTimeout(id);
+  }, [state.top]);
+
+  function reset() {
+    dispatch({ type: "RESET" });
+  }
+
+  const jellyfish = (
+    <Jellyfish top={state.top} key="jellyfish" onClick={reset} />
+  );
+
   switch (state.page) {
+    case "intro":
+      return jellyfish;
     case "welcome":
       return (
-        <WelcomePage
-          success={modelAnswer =>
-            dispatch({ type: "WELCOME_SUBMIT", modelAnswer })
-          }
-          papers={state.papers}
-          setPapers={papers =>
-            dispatch({ type: "WELCOME_LOAD_PAPERS", papers })
-          }
-          model={state.model}
-          setModel={model => dispatch({ type: "WELCOME_LOAD_MODEL", model })}
-        />
+        <>
+          {jellyfish}
+          <WelcomePage
+            success={modelAnswer =>
+              dispatch({ type: "WELCOME_SUBMIT", modelAnswer })
+            }
+            papers={state.papers}
+            setPapers={papers =>
+              dispatch({ type: "WELCOME_LOAD_PAPERS", papers })
+            }
+            model={state.model}
+            setModel={model => dispatch({ type: "WELCOME_LOAD_MODEL", model })}
+          />
+        </>
       );
     case "model_answer":
       return (
-        <ModelAnswerPage
-          success={grades => dispatch({ type: "MODEL_ANSWER_SUBMIT", grades })}
-          answers={state.modelAnswer}
-          model={state.model}
-        />
+        <>
+          {jellyfish}
+          <ModelAnswerPage
+            success={grades =>
+              dispatch({ type: "MODEL_ANSWER_SUBMIT", grades })
+            }
+            answers={state.modelAnswer}
+            model={state.model}
+          />
+        </>
       );
     case "students_table":
       return (
-        <StudentGradesPage
-          modelAnswer={state.modelAnswer}
-          papers={state.papers}
-          grades={state.grades}
-        />
+        <>
+          {jellyfish}
+          <StudentGradesPage
+            modelAnswer={state.modelAnswer}
+            papers={state.papers}
+            grades={state.grades}
+          />
+        </>
       );
     default:
       throw Error(`Unexpected page name ${state.page}`);
