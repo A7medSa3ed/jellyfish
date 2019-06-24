@@ -9,6 +9,7 @@ import {
   parseIdArray,
   calculateStudentGrade
 } from "../core";
+import errorsModule from "../errors";
 
 const initialState = {
   errors: [],
@@ -72,7 +73,8 @@ export default function StudentGradesPage({
         body: data
       })
         .then(response => response.json())
-        .then(({ mcq, true_false, id }) => {
+        .then(({ mcq, true_false, id, error }) => {
+          if (error) throw errorsModule.ERR_FAIL_PARSE(error, paper.name);
           const parsedId = parseIdArray(id);
 
           return studentModel.findById(parsedId).then(student => {
