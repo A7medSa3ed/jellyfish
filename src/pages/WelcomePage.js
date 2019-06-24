@@ -10,6 +10,8 @@ import { parseConfidenceArray } from "../core";
 import { resulti } from "resulti";
 import { css, jsx } from "@emotion/core";
 
+import errors from "../errors";
+
 // import { maxWidth } from "@material-ui/system";
 
 export default function WelcomePage({
@@ -132,7 +134,8 @@ export default function WelcomePage({
                 body: data
               })
                 .then(response => response.json())
-                .then(({ mcq, true_false }) => {
+                .then(({ mcq, true_false, error }) => {
+                  if (error) throw errors.ERR_FAIL_PARSE(error, model.name);
                   const resultMCQ = mcq.reduce(
                     parseConfidenceArray("mcq"),
                     resulti([])

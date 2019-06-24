@@ -18,6 +18,11 @@ const errors = {
     new JellyfishError({
       code: "ERR_TF_DUP",
       description: `all answers for a true/false question no. ${questionNo} are the same.`
+    }),
+  ERR_FAIL_PARSE: (err, paperName) =>
+    new JellyfishError({
+      code: "ERR_TF_DUP",
+      description: `${err} at ${paperName}.`
     })
 };
 

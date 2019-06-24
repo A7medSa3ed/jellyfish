@@ -20,16 +20,19 @@ def index(request):
             )
             image = image_from_butter(buffer)
 
-            unprepared_response = detect_answers(image)
-            unprepared_response["id"] = detect_identity(image)
-            # unprepared_response["id"] = [
-            #     [0, 99, 0, 0, 0, 0, 0, 0, 0, 0],
-            #     [0, 0, 99, 0, 0, 0, 0, 0, 0, 0],
-            #     [0, 0, 0, 99, 0, 0, 0, 0, 0, 0],
-            #     [0, 0, 0, 0, 99, 0, 0, 0, 0, 0],
-            #     [0, 0, 0, 0, 0, 99, 0, 0, 0, 0],
-            #     [0, 0, 0, 0, 0, 0, 99, 0, 0, 0]
-            # ]
+            try:
+                unprepared_response = detect_answers(image)
+                unprepared_response["id"] = detect_identity(image)
+                # unprepared_response["id"] = [
+                #     [0, 99, 0, 0, 0, 0, 0, 0, 0, 0],
+                #     [0, 0, 99, 0, 0, 0, 0, 0, 0, 0],
+                #     [0, 0, 0, 99, 0, 0, 0, 0, 0, 0],
+                #     [0, 0, 0, 0, 99, 0, 0, 0, 0, 0],
+                #     [0, 0, 0, 0, 0, 99, 0, 0, 0, 0],
+                #     [0, 0, 0, 0, 0, 0, 99, 0, 0, 0]
+                # ]
+            except (ValueError, RuntimeError, TypeError, NameError):
+                unprepared_response = {"error": "Failed to parse paper"}
 
             response = JsonResponse(unprepared_response)
             response["Access-Control-Allow-Origin"] = "*"
