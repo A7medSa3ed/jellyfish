@@ -26,16 +26,21 @@ function reducer(state, action) {
     case "GOTO_STUDENT":
       return { ...state, activeStudentIndex: action.index };
     case "GOTO_MAIN":
+      const studentsNew = state.students.slice(0);
+      studentsNew[state.activeStudentIndex] = {
+        ...studentsNew[state.activeStudentIndex],
+        grade: action.grade
+      };
+
+      studentsNew[state.activeStudentIndex]._id =
+        state.students[state.activeStudentIndex]._id;
+      studentsNew[state.activeStudentIndex].name =
+        state.students[state.activeStudentIndex].name;
+
       return {
         ...state,
         activeStudentIndex: null,
-        students: {
-          ...state.student,
-          [state.activeStudentIndex]: {
-            ...state.students[state.activeStudentIndex],
-            grade: action.grade
-          }
-        }
+        students: studentsNew
       };
     default:
       throw new Error();
