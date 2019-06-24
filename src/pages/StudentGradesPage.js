@@ -11,19 +11,30 @@ import {
 } from "../core";
 import errorsModule from "../errors";
 
-const initialState = {
-  errors: [],
-  students: [],
-  activeStudentIndex: null
-};
+function init(papers) {
+  return {
+    errors: [],
+    students: Array.from({ length: papers.length }).fill({ loading: true }),
+    activeStudentIndex: null
+  };
+}
 
 function reducer(state, action) {
   console.log(action);
   switch (action.type) {
     case "ADD_STUDENT":
-      return { ...state, students: [...state.students, action.student] };
+      const students = state.students.slice(0);
+      const index = students.findIndex(student => student.loading);
+      students[index] = action.student;
+      return { ...state, students: students };
     case "ADD_ERROR":
-      return { ...state, errors: [...state.errors, action.error] };
+      const studentsC = state.students.slice(0);
+      studentsC.pop();
+      return {
+        ...state,
+        errors: [...state.errors, action.error],
+        students: studentsC
+      };
     case "GOTO_STUDENT":
       return { ...state, activeStudentIndex: action.index };
     case "GOTO_MAIN":
@@ -56,7 +67,8 @@ export default function StudentGradesPage({
 }) {
   const [{ errors, students, activeStudentIndex }, dispatch] = React.useReducer(
     reducer,
-    initialState
+    papers,
+    init
   );
   console.log({ errors, students, activeStudentIndex });
   // const [errors, setErrors] = React.useState([]);

@@ -6,6 +6,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 export default function({ students, check }) {
   return (
@@ -73,10 +74,25 @@ export default function({ students, check }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {students.map(
-            (row, i) =>
-              console.log(row) || (
-                <TableRow key={row._id}>
+          {students.map((row, i) => (
+            <TableRow key={row._id || i}>
+              {row.loading ? (
+                <TableCell
+                  style={{
+                    color: "#fff",
+                    width: "8%",
+                    textAlign: "center",
+                    fontSize: "16px",
+                    fontWeight: "700"
+                  }}
+                  component="th"
+                  scope="row"
+                  colSpan={5}
+                >
+                  <LinearProgress />
+                </TableCell>
+              ) : (
+                <>
                   <TableCell
                     style={{
                       color: "#fff",
@@ -149,9 +165,10 @@ export default function({ students, check }) {
                       Check
                     </Button>
                   </TableCell>
-                </TableRow>
-              )
-          )}
+                </>
+              )}
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </Paper>
