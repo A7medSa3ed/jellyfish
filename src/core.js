@@ -8,7 +8,7 @@ const maps = {
   true_false: ["T", "F"]
 };
 
-export function parseConfidenceArray(type) {
+export function parseConfidenceArray(type, careAboutDoubles = true) {
   if (!maps[type]) {
     throw Error(`Unknown answer array type ${type}`);
   }
@@ -20,10 +20,13 @@ export function parseConfidenceArray(type) {
 
     const parsed = singleAnswers.map(confidence => confidence > 60);
 
-    // TODO: TEMP TURN OFF FOR TESTING
-    // if (type === "true_false" && parsed.every(v => v === parsed[0])) {
-    //   return resulti(undefined, errors["ERR_TF_DUP"](questionNumber))
-    // }
+    if (
+      careAboutDoubles &&
+      type === "true_false" &&
+      parsed.every(v => v === true)
+    ) {
+      return resulti(undefined, errors["ERR_TF_DUP"](questionNumber + 1));
+    }
 
     return resulti([
       ...allAnswers.unwrap(),

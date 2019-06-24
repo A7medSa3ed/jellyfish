@@ -102,7 +102,7 @@ export default function StudentGradesPage({
             });
 
           const resultTrueOrFalse = true_false
-            .reduce(parseConfidenceArray("true_false"), resulti([]))
+            .reduce(parseConfidenceArray("true_false", false), resulti([]))
             .unwrapOrElse(err => {
               throw err;
             });
