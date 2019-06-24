@@ -7,6 +7,7 @@ import Jellyfish from "./components/Jellyfish";
 
 const initialState = {
   page: "intro",
+  id: "",
   top: false,
   papers: null,
   model: null,
@@ -21,6 +22,8 @@ function reducer(state, action) {
       return { ...state, top: true };
     case "INTRO_END":
       return { ...state, page: "welcome" };
+    case "WELCOME_ID_CHANGE":
+      return { ...state, id: action.id };
     case "WELCOME_LOAD_PAPERS":
       return { ...state, papers: action.papers };
     case "WELCOME_LOAD_MODEL":
@@ -90,6 +93,8 @@ function App() {
             }
             model={state.model}
             setModel={model => dispatch({ type: "WELCOME_LOAD_MODEL", model })}
+            id={state.id}
+            setId={id => dispatch({ type: "WELCOME_ID_CHANGE", id })}
           />
         </>
       );
@@ -114,6 +119,7 @@ function App() {
             modelAnswer={state.modelAnswer}
             papers={state.papers}
             grades={state.grades}
+            subjectId={state.id}
           />
         </>
       );

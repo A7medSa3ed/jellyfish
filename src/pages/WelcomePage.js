@@ -17,10 +17,11 @@ export default function WelcomePage({
   papers,
   setPapers,
   model,
-  setModel
+  setModel,
+  id,
+  setId
 }) {
   const [error, setError] = React.useState("");
-  const [id, setID] = React.useState("");
   const [submitted, setSubmitted] = React.useState(false);
 
   let paperCount = "";
@@ -51,7 +52,7 @@ export default function WelcomePage({
             }
           `}
         >
-          <Input value={id} onChange={e => setID(e.target.value)} />
+          <Input value={id} onChange={e => setId(e.target.value)} />
           <Dropzone
             text={`Select model answer: ${(model && model.path) || ""}`}
             setFiles={file =>
