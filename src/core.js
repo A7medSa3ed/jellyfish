@@ -75,14 +75,14 @@ function calculateMCQGrades(modelAnswers, grades, answers) {
       );
 
       if (grade.divideMark) {
-        const modelAnswerCount = modelAnswers.reduce(count(true), 0);
+        const modelAnswerCount = modelAnswer.reduce(count(true), 0);
         if (modelAnswerCount !== answer.reduce(count(true), 0)) {
           return 0;
         }
 
         return (
           (fromBinaryToArray(
-            fromArrayToBinary(modelAnswer) & fromBinaryToArray(answer)
+            fromArrayToBinary(modelAnswer) & fromArrayToBinary(answer)
           ).reduce(count(true), 0) /
             modelAnswerCount) *
           grade.grade
