@@ -11,7 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
-export default function StudentAnswersPage({ students, errors, check }) {
+export default function StudentAnswersPage({ students, errors, check, end }) {
   const classes = useStyles();
 
   return (
@@ -99,48 +99,51 @@ export default function StudentAnswersPage({ students, errors, check }) {
               transition: 800ms ease all;
             }
           `}
+          onClick={end}
         >
           Submit
         </button>
       </div>
-      <Grid
-        container
-        spacing={2}
-        style={{
-          color: "red",
-          marginTop: "8.25%",
-          marginLeft: "-9%",
-          border: "2px solid red",
-          width: "35%",
-          height: " 0%",
-          marginRight: "171px"
-        }}
-      >
-        <Grid item xs={12} md={8}>
-          <Typography
-            variant="h6"
-            className={classes.title}
-            style={{ marginTop: "10px", marginBottom: "0px" }}
-          >
-            Errors
-          </Typography>
-          <div className={classes.demo}>
-            <List
-              dense={false}
-              css={css`
-                padding-top: 0 !important;
-                padding-bottom: 0 !important;
-              `}
+      {errors.length > 0 && (
+        <Grid
+          container
+          spacing={2}
+          style={{
+            color: "red",
+            marginTop: "8.25%",
+            marginLeft: "-9%",
+            border: "2px solid red",
+            width: "35%",
+            height: " 0%",
+            marginRight: "171px"
+          }}
+        >
+          <Grid item xs={12} md={8}>
+            <Typography
+              variant="h6"
+              className={classes.title}
+              style={{ marginTop: "10px", marginBottom: "0px" }}
             >
-              {errors.map(error => (
-                <ListItem style={{ backgroundColor: "#36393f" }}>
-                  <ListItemText primary={error.message} />
-                </ListItem>
-              ))}
-            </List>
-          </div>
+              Errors
+            </Typography>
+            <div className={classes.demo}>
+              <List
+                dense={false}
+                css={css`
+                  padding-top: 0 !important;
+                  padding-bottom: 0 !important;
+                `}
+              >
+                {errors.map(error => (
+                  <ListItem style={{ backgroundColor: "#36393f" }}>
+                    <ListItemText primary={error.message} />
+                  </ListItem>
+                ))}
+              </List>
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
+      )}
     </div>
   );
 }

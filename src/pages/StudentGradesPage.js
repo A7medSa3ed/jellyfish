@@ -63,7 +63,8 @@ export default function StudentGradesPage({
   modelAnswer,
   papers,
   grades,
-  subjectId
+  subjectId,
+  end
 }) {
   const [{ errors, students, activeStudentIndex }, dispatch] = React.useReducer(
     reducer,
@@ -87,7 +88,7 @@ export default function StudentGradesPage({
         .then(response => response.json())
         .then(({ mcq, true_false, id, error }) => {
           if (error) throw errorsModule.ERR_FAIL_PARSE(error, paper.name);
-          const parsedId = parseIdArray(id);
+          const parsedId = parseIdArray(id, paper);
 
           return studentModel.findById(parsedId).then(student => {
             if (!student) {
@@ -152,6 +153,7 @@ export default function StudentGradesPage({
       students={students}
       errors={errors}
       check={index => dispatch({ type: "GOTO_STUDENT", index })}
+      end={end}
     />
   );
 }

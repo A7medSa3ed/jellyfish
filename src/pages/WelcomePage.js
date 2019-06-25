@@ -11,6 +11,7 @@ import { resulti } from "resulti";
 import { css, jsx } from "@emotion/core";
 
 import errors from "../errors";
+import subjectModel from "../models/subject";
 
 // import { maxWidth } from "@material-ui/system";
 
@@ -129,10 +130,15 @@ export default function WelcomePage({
               const data = new FormData();
               data.append("paper", model, model.name);
 
-              fetch("http://localhost:8000/upload/", {
-                method: "POST",
-                body: data
-              })
+              subjectModel
+                .findById(id)
+                .then(subject => {
+                  if (!subject) throw errors.ERR_SUBJ_NOTFOUND(id);
+                  return fetch("http://localhost:8000/upload/", {
+                    method: "POST",
+                    body: data
+                  });
+                })
                 .then(response => response.json())
                 .then(({ mcq, true_false, error }) => {
                   if (error) throw errors.ERR_FAIL_PARSE(error, model.name);

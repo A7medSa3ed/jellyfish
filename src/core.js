@@ -35,8 +35,22 @@ export function parseConfidenceArray(type, careAboutDoubles = true) {
   };
 }
 
-export function parseIdArray(array) {
-  return array.map(innerArray => indexOfMax(innerArray)).join("");
+export function parseIdArray(array, paper) {
+  return array.map(innerArray => indexOfMax(innerArray, paper)).join("");
+}
+
+export function mapGradeToGrade(num) {
+  const mapGrades = [85, 80, 75, 70, 65, 60];
+
+  const mapLetters = ["A", "B+", "B", "C+", "C", "D"];
+
+  for (let i = 0; i < mapGrades.length; i++) {
+    if (num > mapGrades[i]) {
+      return mapLetters[i];
+    }
+  }
+
+  return "F";
 }
 
 export function getBase64(file) {
@@ -112,19 +126,26 @@ function calculateTrueOrFalseGrades(modelAnswers, grades, answers) {
     .reduce((a, b) => a + b);
 }
 
-function indexOfMax(arr) {
+function indexOfMax(arr, paper) {
   if (arr.length === 0) {
     return -1;
   }
 
   var max = arr[0];
   var maxIndex = 0;
+  let foundSomething = arr[0] > 10 ? true : false;
 
   for (var i = 1; i < arr.length; i++) {
     if (arr[i] > max) {
       maxIndex = i;
       max = arr[i];
     }
+    if (arr[i] > 10) {
+      foundSomething = true;
+    }
+  }
+  if (!foundSomething) {
+    throw errors.ERR_INCOMPLETE_ID(paper.name);
   }
 
   return maxIndex;

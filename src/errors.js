@@ -21,8 +21,18 @@ const errors = {
     }),
   ERR_FAIL_PARSE: (err, paperName) =>
     new JellyfishError({
-      code: "ERR_TF_DUP",
+      code: "ERR_FAIL_PARSE",
       description: `${err} at ${paperName}.`
+    }),
+  ERR_SUBJ_NOTFOUND: id =>
+    new JellyfishError({
+      code: "ERR_SUBJ_NOTFOUND",
+      description: `Can't find subject with id: ${id}`
+    }),
+  ERR_INCOMPLETE_ID: paperName =>
+    new JellyfishError({
+      code: "ERR_INCOMPLETE_ID",
+      description: `Incomplete ID at ${paperName}`
     })
 };
 

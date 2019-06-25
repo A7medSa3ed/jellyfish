@@ -46,6 +46,11 @@ function reducer(state, action) {
         page: "welcome",
         top: true
       };
+    case "END":
+      return {
+        ...state,
+        page: "end"
+      };
     default:
       throw new Error();
   }
@@ -120,7 +125,25 @@ function App() {
             papers={state.papers}
             grades={state.grades}
             subjectId={state.id}
+            end={() => dispatch({ type: "END" })}
           />
+        </>
+      );
+    case "end":
+      return (
+        <>
+          {jellyfish}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <h1 style={{ color: "white", fontSize: "80px", marginTop: "25% " }}>
+              SUCCESS!
+            </h1>
+          </div>
         </>
       );
     default:

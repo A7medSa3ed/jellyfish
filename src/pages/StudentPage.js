@@ -3,7 +3,7 @@ import React from "react";
 // import Button from "@material-ui/core/Button";
 import { css, jsx } from "@emotion/core";
 import Table from "../components/Table";
-import { getBase64 } from "../core";
+import { getBase64, mapGradeToGrade } from "../core";
 import TextField from "@material-ui/core/TextField";
 
 export default function StudentPage({ close, student }) {
@@ -145,7 +145,11 @@ export default function StudentPage({ close, student }) {
           disabled={true}
           id="outlined-name"
           label="Total Grade"
-          value={grade + student.midterm}
+          value={
+            grade +
+            student.midterm +
+            `(${mapGradeToGrade(grade + student.midterm)})`
+          }
           variant="outlined"
           style={{
             marginLeft: "2%",

@@ -1,0 +1,13 @@
+directories:
+  output: dist
+  buildResources: assets
+files:
+  - filter:
+      - build/**/*
+extraMetadata:
+  main: build/electron.js
+appId: com.electron.jellyfish
+mac:
+  category: public.app-category.education
+extends: react-cra
+electronVersion: 5.0.4
