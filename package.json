@@ -13,7 +13,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-dropzone": "^10.1.5",
-    "react-scripts": "3.0.1",
+    "react-scripts": "5.0.1",
     "resulti": "^2.0.0"
   },
   "main": "public/electron.js",
@@ -49,7 +49,7 @@
     "@storybook/addon-actions": "^5.1.8",
     "@storybook/addon-links": "^5.1.8",
     "@storybook/addons": "^5.1.8",
-    "@storybook/react": "^5.1.8",
+    "@storybook/react": "^6.5.13",
     "concurrently": "^4.1.0",
     "cross-env": "^5.2.0",
     "electron": "^5.0.4",
